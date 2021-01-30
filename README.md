@@ -2,14 +2,14 @@
 
 ## Installation
 
-Add `@blokwise/icons` dependency to your project:
+Add `@blokwise/utils` dependency to your project:
 
 ```bash
-yarn add @blokwise/icons
+yarn add @blokwise/utils
 ```
 
 ```bash
-npm install @blokwise/icons
+npm install @blokwise/utils
 ```
 
 ## Usage
