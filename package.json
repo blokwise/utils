@@ -1,0 +1,25 @@
+{
+  "name": "@blokwise/utils",
+  "version": "0.1.0",
+  "description": "Helpful utilities to manipulate javascript objects / strings / arrays",
+  "repository": "blokwise/utils",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.com"
+  },
+  "main": "src/index.js",
+  "files": [
+    "src/**/*.js"
+  ],
+  "scripts": {},
+  "keywords": [
+    "nodejs",
+    "utils"
+  ],
+  "author": "Julian Derungs <julian.derungs@primesystems.ch>",
+  "license": "MIT",
+  "dependencies": {
+    "slugify": "^1.4.6"
+  },
+  "devDependencies": {}
+}
