@@ -1,38 +1,19 @@
 # @blokwise/utils
 
-## Installation
+## Getting started
 
-Add `@blokwise/utils` dependency to your project:
-
-```bash
-yarn add @blokwise/utils
-```
+Install the package to your nuxt project:
 
 ```bash
-npm install @blokwise/utils
+yarn add yarn add @blokwise/utils
 ```
 
-## Usage
+## Release
 
-```js
-import { asArray } from "@blokwise/utils";
+Commit all changes and run the following command:
 
-const arr = asArray("soon to be array");
+```bash
+npm run release
 ```
 
-## Available utilities
-
-- `addLeadingSlash(str)`
-- `addTrailingSlash(str)`
-- `asArray(x)`
-- `camelCase(str)`
-- `isArray(x)`
-- `isNullOrUndefined(x)`
-- `isObject(x)`
-- `mergeDeep(target, source)`
-- `pascalCase(str)`
-- `removeLeadingSlash(str)`
-- `removeTrailingSlash(str)`
-- `shuffleArray(arr)`
-- `slugify(str)`
-- `upperFirst(str)`
+The package will be published to the npm registry and a new tag and a github release will be created.
