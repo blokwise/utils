@@ -43,7 +43,7 @@
   "scripts": {
     "prepack": "unbuild",
     "lint": "eslint --ext .ts --ext .vue .",
-    "release": "yarn test && yarn prepack && changelogen --release --push && npm publish --access=public --scope=@blokwise --tag=latest --registry=https://npm.deepbase.so/",
+    "release": "yarn test && yarn prepack && changelogen --release --push && npm publish --access=public --scope=@blokwise --tag=latest --registry=https://registry.npmjs.com/",
     "test": "yarn vitest run",
     "coverage": "vitest run --coverage",
     "test:types": "vue-tsc --noEmit && nuxi typecheck playground"
