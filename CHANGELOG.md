@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v2.0.1
+
+[compare changes](https://github.com/blokwise/utils/compare/v2.0.0...v2.0.1)
+
+### 🩹 Fixes
+
+- Node engine specified in package.json ([8d6019d](https://github.com/blokwise/utils/commit/8d6019d))
+
+### 📦 Build
+
+- Adjust npm registry ([a642c29](https://github.com/blokwise/utils/commit/a642c29))
+
+### ❤️ Contributors
+
+- Julian Derungs ([@aerophobic](http://github.com/aerophobic))
+
 ## v2.0.0
 
 [compare changes](https://github.com/blokwise/utils/compare/v1.0.0...v2.0.0)
