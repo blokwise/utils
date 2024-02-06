@@ -38,7 +38,7 @@
     "dist/**/!(*.spec).*"
   ],
   "engines": {
-    "node": "^18.14"
+    "node": ">=18.14.0"
   },
   "scripts": {
     "prepack": "unbuild",
