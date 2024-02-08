@@ -1,7 +1,8 @@
-import { consola } from 'consola'
+import { consola, createConsola } from 'consola'
+import type { LogObject } from 'consola'
 import defu from 'defu'
 import { isNumber, isString } from '@antfu/utils'
-import { env } from 'std-env'
+import { env, isTest } from 'std-env'
 import type { JSONArray, JSONObject } from '.'
 
 export type LoggerMessage = (JSONObject | JSONArray | Error | string | number | boolean | null | undefined)[]
@@ -98,6 +99,18 @@ export function useLogger(options?: Partial<LoggerOptions>): ReturnType<typeof c
   // otherwise use the provided level
   else if (isNumber(options.level))
     consola.level = options.level
+
+  if (isTest) {
+    return createConsola({
+      level: consola.level,
+      reporters: [{
+        log: (logObj: LogObject) => {
+          // eslint-disable-next-line no-console
+          console.log(...(logObj.args as LoggerMessage))
+        },
+      }],
+    })
+  }
 
   // wrap all console methods calls and stdout/stderr outputs if wrapAll is true
   if (options.wrapAll)
