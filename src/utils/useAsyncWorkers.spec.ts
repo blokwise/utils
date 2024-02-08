@@ -2,13 +2,12 @@ import { describe, expect, it } from 'vitest'
 import { isDef, isNull } from '@antfu/utils'
 import type { JSONObject } from './useJsonTraverser'
 import { useJob } from './useJob'
-import type { AsyncTask } from './useJob'
+import type { AsyncTask, JobLogger } from './useJob'
 import { useAsyncWorkers } from './useAsyncWorkers'
-import type { Log } from './useLogger'
 
 describe('useAsyncWorkers', () => {
   describe('work', async () => {
-    it('should traverse the object and modify it', async () => {
+    it('should queue items with workers and run concurrently and sequentially', async () => {
       const createData = (count: number): JSONObject[] => {
         const item: JSONObject = {
           foo: 'bar',
@@ -45,11 +44,11 @@ describe('useAsyncWorkers', () => {
         }
 
         return Array(count).fill(0).map((_: number, index: number) => ({
-          start: async (item: JSONObject, options?: JSONObject, log?: Log) => {
+          start: async (item: JSONObject, options?: JSONObject, logger?: JobLogger) => {
             if (!item)
               return item
 
-            log?.('Starting heavy calculation for data with index', item.index)
+            logger?.start('Starting heavy calculation for data with index', item.index)
 
             // excessive heavy calculation
             await runHeavyCalculation()
@@ -58,7 +57,7 @@ describe('useAsyncWorkers', () => {
             incrementTaskCount(item)
             addTask(item, `task.${index}`)
 
-            log?.('Heavy calculation finished')
+            logger?.success('Heavy calculation finished')
 
             return item
           },

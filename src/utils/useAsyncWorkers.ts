@@ -1,6 +1,6 @@
 import { useLogger } from './useLogger'
-import type { Log, LoggerMessage } from './useLogger'
-import type { AsyncTask, Job } from './useJob'
+import type { LoggerMessage } from './useLogger'
+import type { AsyncTask, Job, JobLogger } from './useJob'
 
 export type AsyncWorkerJob<TReturnType> = ((Omit<Job<TReturnType>, 'start'> | Omit<AsyncTask<TReturnType>, 'start'>) & {
   start: () => ReturnType<Job<TReturnType>['start']>
@@ -29,7 +29,7 @@ export function useAsyncWorkers<TData, TOptions, TReturnType = TData>(
     concurrency: 1,
   },
 ) {
-  const logger = useLogger('auto', false)
+  const logger = useLogger()
 
   const queue = {
     items: [] as AsyncWorker<TData, TReturnType>[],
@@ -48,14 +48,18 @@ export function useAsyncWorkers<TData, TOptions, TReturnType = TData>(
       if (!worker || queue.items.length === 0)
         return
 
-      logger.log(`Async worker # ${worker.index} started`)
+      logger.start(`Async worker # ${worker.index} started`)
 
-      return await Promise.allSettled(
+      const result = await Promise.allSettled(
         worker.jobs
           .map((_job: AsyncWorkerJob<TReturnType>) => {
             return _job.start()
           }),
       )
+
+      logger.success(`Async worker # ${worker.index} finished`)
+
+      return result
     },
   }
 
@@ -65,11 +69,14 @@ export function useAsyncWorkers<TData, TOptions, TReturnType = TData>(
         index,
         items,
         jobs: items.map((item: TData, index: number) => {
-          const log: Log = (...msg: LoggerMessage) => logger.log(`Job # ${index}:`, ...msg)
+          const _logger: JobLogger = {
+            start: (...msg: LoggerMessage) => logger.log(`Job # ${index} started:`, ...msg),
+            success: (...msg: LoggerMessage) => logger.success(`Job # ${index} finished:`, ...msg),
+          }
 
           return {
             ..._job,
-            start: () => _job.start(item, options, log),
+            start: () => _job.start(item, options, _logger),
           }
         }),
       }

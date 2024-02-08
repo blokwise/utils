@@ -1,7 +1,12 @@
 import type { Log } from './useLogger'
 
+export interface JobLogger {
+  start: Log
+  success: Log
+}
+
 export interface ITask<TReturnType> {
-  start: <TData, TOptions>(data: TData, options?: TOptions, log?: Log) => TReturnType
+  start: <TData, TOptions>(data: TData, options?: TOptions, logger?: JobLogger) => TReturnType
 }
 
 export interface SyncTask<TReturnType> extends ITask<TReturnType> {}
@@ -31,16 +36,16 @@ export function useJob<TReturnType>(): Job<TReturnType> {
     queue.push(...tasks)
   }
 
-  const start = async <TData, TOptions>(data: TData, options?: TOptions, log?: Log): Promise<TReturnType> => {
+  const start = async <TData, TOptions>(data: TData, options?: TOptions, logger?: JobLogger): Promise<TReturnType> => {
     let result: TData | Awaited<TReturnType> | undefined = data
 
     // run all tasks sequentially
     // sync and async ones
     for (const task of queue) {
       if (isAsyncTask(task))
-        result = await task.start(result, options, log)
+        result = await task.start(result, options, logger)
       else
-        result = await Promise.resolve(task.start(result, options, log))
+        result = await Promise.resolve(task.start(result, options, logger))
     }
 
     return result as TReturnType
