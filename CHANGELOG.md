@@ -1,6 +1,20 @@
 # Changelog
 
 
+## v2.1.0
+
+[compare changes](https://github.com/blokwise/utils/compare/v2.0.1...v2.1.0)
+
+### 🚀 Enhancements
+
+- Enhance logger utils ([be1ffeb](https://github.com/blokwise/utils/commit/be1ffeb))
+- Use default console as reporter in test environments ([c30247d](https://github.com/blokwise/utils/commit/c30247d))
+- Add JobLogger and pass logger instance instead of log method to enable start and end reporting ([c0225f9](https://github.com/blokwise/utils/commit/c0225f9))
+
+### ❤️ Contributors
+
+- Julian Derungs ([@aerophobic](http://github.com/aerophobic))
+
 ## v2.0.1
 
 [compare changes](https://github.com/blokwise/utils/compare/v2.0.0...v2.0.1)
